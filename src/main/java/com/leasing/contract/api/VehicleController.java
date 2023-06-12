@@ -6,6 +6,9 @@ import com.leasing.contract.api.model.CreateVehicle;
 import com.leasing.contract.api.model.UpdateVehicle;
 import com.leasing.contract.entity.Vehicle;
 import com.leasing.contract.service.VehicleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,23 +30,45 @@ public class VehicleController {
 		this.vehicleService = vehicleService;
 	}
 
+	@Operation(summary = "Get Vehicle details")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Vehicle Details"),
+			@ApiResponse(responseCode = "500", description = "Server error"),
+			@ApiResponse(responseCode = "404", description = "Resource not found")
+	})
 	@GetMapping("/{vehicleId}")
 	public ResponseEntity<Vehicle> getVehicle(@PathVariable(required = true) String vehicleId){
 		return ResponseEntity.ok(vehicleService.getVehicle(vehicleId));
 	}
 
+	@Operation(summary = "Get Available Vehicles")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Vehicle Details"),
+			@ApiResponse(responseCode = "500", description = "Server error")
+	})
 	@GetMapping
 	public ResponseEntity<List<Vehicle>> getAvailableVehicles(){
 		return ResponseEntity.ok(vehicleService.getAvailableVehicles());
 	}
 
+	@Operation(summary = "Create new Vehicles")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Vehicle Details"),
+			@ApiResponse(responseCode = "500", description = "Server error")
+	})
 	@PostMapping
 	private ResponseEntity<String> createVehicle(@RequestBody CreateVehicle createVehicle){
 		return ResponseEntity.ok(vehicleService.createVehicle(createVehicle));
 	}
 
+	@Operation(summary = "Update existing Vehicles")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Vehicle Details"),
+			@ApiResponse(responseCode = "500", description = "Server error"),
+			@ApiResponse(responseCode = "404", description = "Resource not found")
+	})
 	@PutMapping("/{vehicleId}")
-	private ResponseEntity<String> createVehicle(@PathVariable(required = true) String vehicleId,
+	private ResponseEntity<String> updateVehicle(@PathVariable(required = true) String vehicleId,
 			@RequestBody UpdateVehicle createVehicle){
 		return ResponseEntity.ok(vehicleService.updateVehicle(vehicleId, createVehicle));
 	}
