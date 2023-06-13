@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.leasing.contract.api.exception.ResourceNotFoundException;
-import com.leasing.contract.api.model.CreateVehicle;
+import com.leasing.contract.api.model.VehicleRequest;
 import com.leasing.contract.api.model.UpdateVehicle;
 import com.leasing.contract.entity.Contract;
 import com.leasing.contract.entity.Vehicle;
@@ -39,15 +39,15 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public String createVehicle(CreateVehicle createVehicle) {
+	public String createVehicle(VehicleRequest vehicleRequest) {
 		Vehicle vehicle = new Vehicle();
-		vehicle.setBrand(createVehicle.getBrand());
-		vehicle.setModel(createVehicle.getModel());
-		vehicle.setModelYear(createVehicle.getModelYear());
-		vehicle.setPrice(createVehicle.getPrice());
+		vehicle.setBrand(vehicleRequest.getBrand());
+		vehicle.setModel(vehicleRequest.getModel());
+		vehicle.setModelYear(vehicleRequest.getModelYear());
+		vehicle.setPrice(vehicleRequest.getPrice());
 
-		if(Strings.isNotBlank(createVehicle.getVin()))
-			vehicle.setVin(createVehicle.getVin());
+		if(Strings.isNotBlank(vehicleRequest.getVin()))
+			vehicle.setVin(vehicleRequest.getVin());
 
 		vehicle = vehicleRepository.save(vehicle);
 		return vehicle.getVehicleId();

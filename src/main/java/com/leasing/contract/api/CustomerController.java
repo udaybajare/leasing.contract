@@ -1,5 +1,7 @@
 package com.leasing.contract.api;
 
+import java.util.List;
+
 import com.leasing.contract.api.model.CustomerRequest;
 import com.leasing.contract.entity.Customer;
 import com.leasing.contract.service.CustomerService;
@@ -25,6 +27,16 @@ public class CustomerController {
 	@Autowired
 	public CustomerController(CustomerService customerService) {
 		this.customerService = customerService;
+	}
+
+	@Operation(summary = "Get All Customers")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Customer Details"),
+			@ApiResponse(responseCode = "500", description = "Server error")
+	})
+	@GetMapping
+	public ResponseEntity<List<Customer>> getAllCustomer() {
+		return ResponseEntity.ok(customerService.getAllCustomers());
 	}
 
 	@Operation(summary = "Get Customer details")

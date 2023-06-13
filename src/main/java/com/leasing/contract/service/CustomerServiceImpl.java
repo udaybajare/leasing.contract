@@ -1,5 +1,6 @@
 package com.leasing.contract.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.leasing.contract.api.exception.ResourceNotFoundException;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
 	private final CustomerRepository customerRepository;
 
@@ -23,9 +24,9 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public Customer getCustomer(String customerId) {
 		Optional<Customer> customer = customerRepository.findById(customerId);
-		if (customer.isPresent()){
+		if (customer.isPresent()) {
 			return customer.get();
-		}else{
+		} else {
 			throw new ResourceNotFoundException("Customer does not exist");
 		}
 	}
@@ -64,5 +65,10 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 
 		return customerId;
+	}
+
+	@Override
+	public List<Customer> getAllCustomers() {
+		return customerRepository.findAll();
 	}
 }

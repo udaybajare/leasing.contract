@@ -11,3 +11,7 @@ Once the db is up, execute following command to run the application
 Once the application is up the API details can be found at following link :
 http://localhost:8080/swagger-ui/index.html
  
+###NOTE
+This application requires following :
+* Java 11
+* Docker   

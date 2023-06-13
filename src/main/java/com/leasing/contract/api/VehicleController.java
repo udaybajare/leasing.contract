@@ -2,7 +2,7 @@ package com.leasing.contract.api;
 
 import java.util.List;
 
-import com.leasing.contract.api.model.CreateVehicle;
+import com.leasing.contract.api.model.VehicleRequest;
 import com.leasing.contract.api.model.UpdateVehicle;
 import com.leasing.contract.entity.Vehicle;
 import com.leasing.contract.service.VehicleService;
@@ -57,8 +57,8 @@ public class VehicleController {
 			@ApiResponse(responseCode = "500", description = "Server error")
 	})
 	@PostMapping
-	private ResponseEntity<String> createVehicle(@RequestBody CreateVehicle createVehicle){
-		return ResponseEntity.ok(vehicleService.createVehicle(createVehicle));
+	private ResponseEntity<String> createVehicle(@RequestBody VehicleRequest vehicleRequest){
+		return ResponseEntity.ok(vehicleService.createVehicle(vehicleRequest));
 	}
 
 	@Operation(summary = "Update existing Vehicles")
